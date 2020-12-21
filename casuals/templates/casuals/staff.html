@@ -12,11 +12,21 @@
 				<div class="card card-body">
 					<table class="table">
 						<tr>
-							<th>Staff Name</th>
-							<th>Staff Qualification</th>
-							<th>Staff Position</th>
+							<th>Name</th>
+							<th>Qualification</th>
+							<th>Phone</th>
+							<th>Email</th>
 						</tr>
-						
+
+						{% for i in staff %}
+						<tr>
+							<td>{{i.fname}}</td>
+							<td>{{i.qualification}}</td>
+							<td>{{i.phone}}</td>
+							<td>{{i.email}}</td>
+						</tr>
+						{% endfor %}
+					
 					</table>
 				</div>
 			</div>
