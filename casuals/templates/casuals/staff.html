@@ -2,35 +2,121 @@
 
 {% block content %}
 
-		<br>
+<br>
 
-		<div class="row">
-			<div class="col-md">
-				<div class="card card-body">
-					<h5>Staff</h5>
-				</div>
-				<div class="card card-body">
-					<table class="table">
-						<tr>
-							<th>Name</th>
-							<th>Qualification</th>
-							<th>Phone</th>
-							<th>Email</th>
-						</tr>
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Jobs Accepted</h5>
+			<hr>
+			<h1 style="text-align: center;padding: 10px">3</h1>
 
-						{% for i in staff %}
-						<tr>
-							<td>{{i.fname}}</td>
-							<td>{{i.qualification}}</td>
-							<td>{{i.phone}}</td>
-							<td>{{i.email}}</td>
-						</tr>
-						{% endfor %}
-					
-					</table>
-				</div>
-			</div>
-			
 		</div>
+	</div>
 
-{% endblock content %}
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Jobs Pending</h5>
+			<hr>
+			<h1 style="text-align: center;padding: 10px">2</h1>
+		</div>
+	</div>
+</div>
+
+<br>
+
+<div class="row">
+	<div class="col-sm">
+		<div class="card card-body">
+			<h5>Job Posts</h5>
+				<table class="table table-md">
+					<tr>
+						<th>Centre</th>
+						<th>Date</th>
+						<th>Shift</th>
+						<th>Note</th>	
+						<th>Accept</th>			
+					</tr>
+
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td><a class="btn btn-sm btn-info" href="#">Accept</a></td>
+					</tr>
+				</table>
+		</div>
+	</div>
+</div>
+
+<br>
+
+<div class="row">
+	<div class="col-sm">
+		<div class="card card-body">
+			<h5>Job invitations</h5>
+				<table class="table table-md">
+					<tr>
+						<th>Centre</th>
+						<th>Date</th>
+						<th>Shift</th>
+						<th>Note</th>	
+						<th></th>
+						<th></th>		
+					</tr>
+
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td><a class="btn btn-sm btn-info" href="#">Accept</a></td>
+						<td><a class="btn btn-sm btn-danger" href="#">Reject</a></td>
+					</tr>
+				</table>
+		</div>
+	</div>
+</div>
+ 
+<br>
+
+<div class="row">
+	<div class="col-sm">
+		<div class="card card-body">
+			<h5>Availabilities</h5>
+			<a class="btn btn-sm btn-info" href="#">Add Availabilities</a>
+				<table class="table table-md">
+					<tr>
+						<th>Date</th>
+						<th>Time</th>
+						<th></th>
+						<th></th>						
+					</tr>
+
+					<tr>
+						<td></td>
+						<td></td>
+						<td><a class="btn btn-sm btn-info" href="#">Update</a></td>
+						<td><a class="btn btn-sm btn-danger" href="#">Delete</a></td>
+					</tr>
+				</table>
+		</div>
+	</div>
+	<div class="col-sm">
+		<div class="card card-body">
+			<h5>Accepted Jobs</h5>
+			<table class="table table-md">
+				<tr>
+					<th>Date</th>
+					<th>Shift</th>
+					<th>Centre</th>
+					<th>Note</th>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

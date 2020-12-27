@@ -15,16 +15,17 @@ class Staff(models.Model):
 			('Others', 'Others'),
 			)
 
-	fname = models.CharField(max_length=200, null=True)
-	lname = models.CharField(max_length=200, null=True)
-	nname = models.CharField(max_length=200, null=True)
-	phone = models.CharField(max_length=200, null=True)
+	first_name = models.CharField(max_length=200, null=True)
+	last_name = models.CharField(max_length=200, null=True)
+	nick_name = models.CharField(max_length=200, null=True)
+	mobile = models.CharField(max_length=200, null=True)
 	email = models.CharField(max_length=200, null=True)
 	qualification = models.CharField(max_length=200, null=True, choices=QUALIFICATION)
 	date_created = models.DateTimeField(auto_now_add=True, null=True)
 
 	def __str__(self):
-		return self.fname
+		return f'{self.first_name} {self.last_name} ({self.nick_name})'
+		
 
 class Manager(models.Model):
 	CENTRE = (
@@ -40,3 +41,50 @@ class Manager(models.Model):
 
 	def __str__(self):
 		return self.centre
+
+
+class Availability(models.Model):
+	
+	staff = models.ForeignKey(Staff, null=True, on_delete= models.SET_NULL)
+	date = models.DateField(null=True)
+	start_time = models.TimeField(default='06:30', null=True)
+	end_time = models.TimeField(default='18:30', null=True)
+	time_created = models.DateTimeField(auto_now_add=True, null=True)
+
+	def __str__(self):
+		return self.date
+
+
+class Job(models.Model):
+	QUALIFICATION = (
+			('Cert III or above', 'Cert III or above'),
+			('Diploma or above', 'Diploma or above'),
+			)
+	
+	date = models.DateField(null=True)
+	shift_start_time = models.TimeField(default='06:30', null=True)
+	shift_end_time = models.TimeField(default='18:30', null=True)
+	qualification = models.CharField(max_length=200, null=True, choices=QUALIFICATION)
+	date_created = models.DateTimeField(auto_now_add=True, null=True)
+
+	def __str__(self):
+		return self.date
+
+
+class Booking(models.Model):
+	STATUS = (
+		('Pending', 'Pending'),
+		('Accepted', 'Accepted'),
+		('Not Accepted', 'Not Accepted'),
+		)
+
+	availability = models.ForeignKey(Availability, null=True, on_delete= models.SET_NULL)
+	job = models.ForeignKey(Job, null=True, on_delete= models.SET_NULL)
+	date = models.DateField(null=True)
+	shift_start_time = models.TimeField(null=True)
+	shift_end_time = models.TimeField(null=True)
+	status = models.CharField(max_length=200, null=True, choices=STATUS)
+	time_created = models.DateTimeField(auto_now_add=True, null=True)
+
+	def __str__(self):
+		return self.date
