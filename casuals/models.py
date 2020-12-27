@@ -51,24 +51,19 @@ class Availability(models.Model):
 	end_time = models.TimeField(default='18:30', null=True)
 	time_created = models.DateTimeField(auto_now_add=True, null=True)
 
-	def __str__(self):
-		return self.date
-
 
 class Job(models.Model):
 	QUALIFICATION = (
 			('Cert III or above', 'Cert III or above'),
 			('Diploma or above', 'Diploma or above'),
 			)
-	
+
+	manager = models.ForeignKey(Manager, null=True, on_delete= models.SET_NULL)
 	date = models.DateField(null=True)
 	shift_start_time = models.TimeField(default='06:30', null=True)
 	shift_end_time = models.TimeField(default='18:30', null=True)
 	qualification = models.CharField(max_length=200, null=True, choices=QUALIFICATION)
 	date_created = models.DateTimeField(auto_now_add=True, null=True)
-
-	def __str__(self):
-		return self.date
 
 
 class Booking(models.Model):
@@ -79,12 +74,8 @@ class Booking(models.Model):
 		)
 
 	availability = models.ForeignKey(Availability, null=True, on_delete= models.SET_NULL)
-	job = models.ForeignKey(Job, null=True, on_delete= models.SET_NULL)
 	date = models.DateField(null=True)
 	shift_start_time = models.TimeField(null=True)
 	shift_end_time = models.TimeField(null=True)
 	status = models.CharField(max_length=200, null=True, choices=STATUS)
 	time_created = models.DateTimeField(auto_now_add=True, null=True)
-
-	def __str__(self):
-		return self.date

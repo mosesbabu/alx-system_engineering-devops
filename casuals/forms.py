@@ -1,8 +1,23 @@
 from django.forms import ModelForm
-from .models import Staff
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django import forms
+from .models import Staff, Job
 
+
+class CreateUserForm(UserCreationForm):
+	class Meta:
+		model = User
+		fields = ['username', 'email', 'password1', 'password2']
 
 class StaffForm(ModelForm):
 	class Meta:
 		model = Staff
 		fields = '__all__'
+
+
+class JobForm(ModelForm):
+	class Meta:
+		model = Job
+		fields = '__all__'
+		exclude = ['date_created']		

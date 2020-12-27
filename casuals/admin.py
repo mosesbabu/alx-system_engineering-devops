@@ -7,3 +7,5 @@ from .models import *
 admin.site.register(Staff)
 admin.site.register(Manager)
 admin.site.register(Availability)
+admin.site.register(Job)
+admin.site.register(Booking)
