@@ -2,7 +2,7 @@ from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from .models import Staff, Job
+from .models import Educator, Job
 
 
 class CreateUserForm(UserCreationForm):
@@ -12,7 +12,7 @@ class CreateUserForm(UserCreationForm):
 
 class StaffForm(ModelForm):
 	class Meta:
-		model = Staff
+		model = Educator
 		fields = '__all__'
 
 

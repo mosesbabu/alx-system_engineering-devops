@@ -1,8 +1,9 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
-class Staff(models.Model):
+class Educator(models.Model):
 	QUALIFICATION = (
 			('Working Towards Cert III', 'Working Towards Cert III'),
 			('Cert III', 'Cert III'),
@@ -15,6 +16,7 @@ class Staff(models.Model):
 			('Others', 'Others'),
 			)
 
+	user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
 	first_name = models.CharField(max_length=200, null=True)
 	last_name = models.CharField(max_length=200, null=True)
 	nick_name = models.CharField(max_length=200, null=True)
@@ -45,7 +47,7 @@ class Manager(models.Model):
 
 class Availability(models.Model):
 	
-	staff = models.ForeignKey(Staff, null=True, on_delete= models.SET_NULL)
+	educator = models.ForeignKey(Educator, null=True, on_delete= models.SET_NULL)
 	date = models.DateField(null=True)
 	start_time = models.TimeField(default='06:30', null=True)
 	end_time = models.TimeField(default='18:30', null=True)
