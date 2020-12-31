@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 # Create your views here.
 from .models import *
-from .forms import StaffForm, JobForm, CreateUserForm
+from .forms import JobForm, CreateUserForm, AvailabilityForm, BookingForm, EducatorForm
 from .decorators import unauthenticated_user, allowed_users, admin_only
 
 # Create your views here.
@@ -85,27 +85,64 @@ def manager(request):
 @allowed_users(allowed_roles=['educator'])
 def educator(request):
 	educator = Educator.objects.all()
+	availability = request.user.educator.availability_set.all()
+	booking = Booking.objects.all()
+	job = Job.objects.all()
 
-	context = {'educator':educator}
+	context = {'educator':educator, 'availability':availability, 'booking':booking, 'job':job}
+
 	return render(request, 'casuals/educator.html',context)
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['educator'])
-def account(request):
-	return render(request, 'casuals/account.html')
+@allowed_users(allowed_roles=['admin'])
+def staffing(request):
+	educator = Educator.objects.all()
+
+	context = {'educator':educator}
+
+	return render(request, 'casuals/staffing.html',context)
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
-def createStaff(request):
-	form = StaffForm()
+@allowed_users(allowed_roles=['educator', 'admin'])
+def account(request):
+	educator = request.user.educator
+
+	form = EducatorForm(instance=educator)
+
 	if request.method == 'POST':
-		form = StaffForm(request.POST)
+		form = EducatorForm(request.POST, request.FILES,instance=educator)
 		if form.is_valid():
 			form.save()
 			return redirect('/')
 
 	context = {'form':form}
-	return render(request, 'casuals/staff_form.html', context)
+	return render(request, 'casuals/account.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def updateEducator(request, pk):
+	educator = Educator.objects.get(id=pk)
+	form = EducatorForm(instance=educator)
+
+	if request.method == 'POST':
+		form = EducatorForm(request.POST, instance=educator)
+		if form.is_valid():
+			form.save()
+			return redirect('/staffing')
+
+	context = {'form':form}
+	return render(request, 'casuals/account.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def deleteEducator(request, pk):
+	educator = Educator.objects.get(id=pk)
+	if request.method == "POST":
+		educator.delete()
+		return redirect('/staffing')
+
+	context = {'item':educator}
+	return render(request, 'casuals/delete_educator.html', context)
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
@@ -119,7 +156,7 @@ def createJob(request):
 
 	context = {'form':form}
 
-	return render(request, 'casuals/job_form.html', context)
+	return render(request, 'casuals/form.html', context)
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
@@ -134,7 +171,7 @@ def updateJob(request, pk):
 			return redirect('/manager')
 
 	context = {'form':form}
-	return render(request, 'casuals/job_form.html', context)
+	return render(request, 'casuals/form.html', context)
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
@@ -145,4 +182,84 @@ def deleteJob(request, pk):
 		return redirect('/manager')
 
 	context = {'item':job}
-	return render(request, 'casuals/delete.html', context)
+	return render(request, 'casuals/delete_job.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['educator'])
+def createAvailability(request):
+	form = AvailabilityForm()
+	if request.method == 'POST':
+		form = AvailabilityForm(request.POST)
+		if form.is_valid():
+			form.save()
+			return redirect('/educator')
+
+	context = {'form':form}
+
+	return render(request, 'casuals/form.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['educator'])
+def updateAvailability(request, pk):
+	availability = Availability.objects.get(id=pk)
+	form = AvailabilityForm(instance=availability)
+
+	if request.method == 'POST':
+		form = AvailabilityForm(request.POST, instance=availability)
+		if form.is_valid():
+			form.save()
+			return redirect('/educator')
+
+	context = {'form':form}
+	return render(request, 'casuals/form.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['educator'])
+def deleteAvailability(request, pk):
+	availability = Availability.objects.get(id=pk)
+	if request.method == "POST":
+		availability.delete()
+		return redirect('/educator')
+
+	context = {'item':availability}
+	return render(request, 'casuals/delete_availability.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def createBooking(request):
+	form = BookingForm()
+	if request.method == 'POST':
+		form = BookingForm(request.POST)
+		if form.is_valid():
+			form.save()
+			return redirect('/manager')
+
+	context = {'form':form}
+
+	return render(request, 'casuals/form.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def updateBooking(request, pk):
+	booking = Booking.objects.get(id=pk)
+	form = BookingForm(instance=booking)
+
+	if request.method == 'POST':
+		form = BookingForm(request.POST, instance=booking)
+		if form.is_valid():
+			form.save()
+			return redirect('/manager')
+
+	context = {'form':form}
+	return render(request, 'casuals/form.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def deleteBooking(request, pk):
+	booking = Booking.objects.get(id=pk)
+	if request.method == "POST":
+		booking.delete()
+		return redirect('/manager')
+
+	context = {'item':booking}
+	return render(request, 'casuals/delete_booking.html', context)

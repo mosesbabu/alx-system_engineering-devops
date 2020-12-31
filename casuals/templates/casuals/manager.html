@@ -47,12 +47,14 @@
 
 		<div class="card card-body">
 			<h5>Bookings</h5>
+			<a class="btn btn-sm btn-info" href="{% url 'create_booking' %}">Add a new booking</a>
 				<table class="table table-md">
 					<tr>
 						<th>Date</th>
 						<th>Educator</th>
 						<th>Qualification</th>
-						<th>Shift</th>	
+						<th>Shift</th>
+						<th>Status</th>		
 						<th></th>
 						<th></th>						
 					</tr>
@@ -60,11 +62,12 @@
 					{% for i in booking %}
 						<tr>
 							<td>{{i.date}}</td>
-							<td>{{i.availability.educator.nick_name}}</td>
-							<td>{{i.availability.educator.qualification}}</td>
-							<td>{{i.shift_start_time}} to {{i.shift_end_time}}</td>						
-							<td><a class="btn btn-sm btn-info" href="#">Update</a></td>
-							<td><a class="btn btn-sm btn-danger" href="#">Delete</a></td>
+							<td>{{i.educator.nick_name}}</td>
+							<td>{{i.educator.qualification}}</td>
+							<td>{{i.shift_start_time}} to {{i.shift_end_time}}</td>
+							<td>{{i.status}}</td>							
+							<td><a class="btn btn-sm btn-info" href="{% url 'update_booking' i.id %}">Update</a></td>
+							<td><a class="btn btn-sm btn-danger" href="{% url 'delete_booking' i.id %}">Delete</a></td>
 						</tr>
 					{% endfor %}
 

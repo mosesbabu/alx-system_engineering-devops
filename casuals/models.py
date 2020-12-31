@@ -23,6 +23,7 @@ class Educator(models.Model):
 	mobile = models.CharField(max_length=200, null=True)
 	email = models.CharField(max_length=200, null=True)
 	qualification = models.CharField(max_length=200, null=True, choices=QUALIFICATION)
+	profile_pic = models.ImageField(default="profile.png", null=True, blank=True)
 	date_created = models.DateTimeField(auto_now_add=True, null=True)
 
 	def __str__(self):
@@ -75,7 +76,7 @@ class Booking(models.Model):
 		('Not Accepted', 'Not Accepted'),
 		)
 
-	availability = models.ForeignKey(Availability, null=True, on_delete= models.SET_NULL)
+	educator = models.ForeignKey(Educator, null=True, on_delete= models.SET_NULL)
 	date = models.DateField(null=True)
 	shift_start_time = models.TimeField(null=True)
 	shift_end_time = models.TimeField(null=True)
