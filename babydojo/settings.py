@@ -41,6 +41,8 @@ INSTALLED_APPS = [
 
     'bd_live',
     'casuals',
+
+    'django_filters',
 ]
 
 MIDDLEWARE = [

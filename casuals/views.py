@@ -8,7 +8,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 # Create your views here.
 from .models import *
-from .forms import JobForm, CreateUserForm, AvailabilityForm, BookingForm, EducatorForm
+from .forms import *
+from .filters import AvailabilityFilter
 from .decorators import unauthenticated_user, allowed_users, admin_only
 
 # Create your views here.
@@ -78,7 +79,10 @@ def manager(request):
 	booking = Booking.objects.all()
 	job = Job.objects.all()
 
-	context = {'availability':availability, 'booking':booking, 'job':job}
+	myFilter = AvailabilityFilter(request.GET, queryset=availability)
+	availability = myFilter.qs
+
+	context = {'availability':availability, 'booking':booking, 'job':job, 'myFilter':myFilter}
 	return render(request, 'casuals/manager.html', context)
 
 @login_required(login_url='login')

@@ -7,6 +7,7 @@
 	<div class="col">
 		<div class="card card-body">
 			<form method="get">
+				{{myFilter.form}}
 			   	<button class="btn btn-primary" type="submit">Search</button>
 		  	</form>
 		</div>
@@ -23,8 +24,8 @@
 			<h5>Available Staff</h5>
 				<table class="table table-md">
 					<tr>
-						<th>Date</th>
 						<th>Educator</th>
+						<th>Date</th>
 						<th>Qualification</th>
 						<th>Available Time</th>	
 						<th></th>					
@@ -32,8 +33,8 @@
 
 					{% for i in availability %}
 						<tr>
-							<td>{{i.date}}</td>
 							<td>{{i.educator.nick_name}}</td>
+							<td>{{i.date}}</td>
 							<td>{{i.educator.qualification}}</td>
 							<td>{{i.start_time}} to {{i.end_time}}</td>						
 							<td><a class="btn btn-sm btn-info" href="#">Book</a></td>
