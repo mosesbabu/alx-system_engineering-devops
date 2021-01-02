@@ -10,6 +10,7 @@ urlpatterns = [
 
 	path('', views.home, name='home'),
 	path('educator/', views.educator, name='educator'),
+	path('educator_list/', views.educatorList, name='educator_list'),
 	path('account/', views.account, name="account"),
 	path('manager/', views.manager, name='manager'),
 	path('staffing/', views.staffing, name='staffing'),
@@ -26,6 +27,7 @@ urlpatterns = [
 	path('update_availability/<str:pk>/', views.updateAvailability, name='update_availability'),
 	path('delete_availability/<str:pk>/', views.deleteAvailability, name='delete_availability'),
 
+	path('make_booking/<str:pk>', views.makeBooking, name='make_booking'),
 	path('create_booking/', views.createBooking, name='create_booking'),
 	path('update_booking/<str:pk>/', views.updateBooking, name='update_booking'),
 	path('delete_booking/<str:pk>/', views.deleteBooking, name='delete_booking'),

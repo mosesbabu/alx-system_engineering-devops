@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
 from .models import Educator, Job, Availability, Booking
+from bootstrap_datepicker_plus import DatePickerInput, TimePickerInput
 
 
 class CreateUserForm(UserCreationForm):
@@ -28,6 +29,11 @@ class AvailabilityForm(ModelForm):
 		model = Availability
 		fields = '__all__'
 		exclude = ['date_created']
+		widgets = {
+            'date': DatePickerInput(format='%Y-%m-%d'),
+			'start_time':TimePickerInput().start_of('available time'),
+            'end_time':TimePickerInput().end_of('available time'),
+        }
 
 class BookingForm(ModelForm):
 	class Meta:

@@ -78,6 +78,7 @@ def manager(request):
 	availability = Availability.objects.all()
 	booking = Booking.objects.all()
 	job = Job.objects.all()
+	
 
 	myFilter = AvailabilityFilter(request.GET, queryset=availability)
 	availability = myFilter.qs
@@ -90,7 +91,7 @@ def manager(request):
 def educator(request):
 	educator = Educator.objects.all()
 	availability = request.user.educator.availability_set.all()
-	booking = Booking.objects.all()
+	booking = request.user.educator.booking_set.all()
 	job = Job.objects.all()
 
 	context = {'educator':educator, 'availability':availability, 'booking':booking, 'job':job}
@@ -121,6 +122,14 @@ def account(request):
 
 	context = {'form':form}
 	return render(request, 'casuals/account.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def educatorList(request):
+	educator = Educator.objects.all()
+
+	context = {'educator':educator}
+	return render(request, 'casuals/educator_list.html', context)
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
@@ -192,6 +201,7 @@ def deleteJob(request, pk):
 @allowed_users(allowed_roles=['educator'])
 def createAvailability(request):
 	form = AvailabilityForm()
+	
 	if request.method == 'POST':
 		form = AvailabilityForm(request.POST)
 		if form.is_valid():
@@ -227,6 +237,23 @@ def deleteAvailability(request, pk):
 
 	context = {'item':availability}
 	return render(request, 'casuals/delete_availability.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def makeBooking(request, pk):
+	availability = Availability.objects.get(id=pk)
+	form = BookingForm(instance=availability)
+	if request.method == 'POST':
+		form = BookingForm(request.POST)
+		if form.is_valid():
+			form.save()
+			availability.delete()
+			return redirect('/manager')
+
+	context = {'form':form}
+
+	return render(request, 'casuals/form.html', context)
+
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])

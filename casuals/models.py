@@ -77,6 +77,7 @@ class Booking(models.Model):
 		)
 
 	educator = models.ForeignKey(Educator, null=True, on_delete= models.SET_NULL)
+	manager = models.ForeignKey(Manager, null=True, on_delete= models.SET_NULL)
 	date = models.DateField(null=True)
 	shift_start_time = models.TimeField(null=True)
 	shift_end_time = models.TimeField(null=True)

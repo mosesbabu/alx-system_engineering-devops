@@ -64,19 +64,19 @@
 						<th>Centre</th>
 						<th>Date</th>
 						<th>Shift</th>
-						<th>Note</th>	
 						<th></th>
 						<th></th>		
 					</tr>
-
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td><a class="btn btn-sm btn-info" href="#">Accept</a></td>
-						<td><a class="btn btn-sm btn-danger" href="#">Reject</a></td>
-					</tr>
+					
+					{% for i in booking %}
+						<tr>
+							<td>{{i.manager.centre}}</td>
+							<td>{{i.date}}</td>
+							<td>{{i.shift_start_time}} to {{i.shift_end_time}}</td>
+							<td><a class="btn btn-sm btn-info" href="#">Accept</a></td>
+							<td><a class="btn btn-sm btn-danger" href="#">Reject</a></td>
+						</tr>
+					{% endfor %}
 				</table>
 		</div>
 	</div>

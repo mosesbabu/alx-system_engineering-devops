@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'casuals',
 
     'django_filters',
+    "bootstrap4",
+    'bootstrap_datepicker_plus',
 ]
 
 MIDDLEWARE = [
@@ -144,3 +146,7 @@ STATICFILES_DIRS = [
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}

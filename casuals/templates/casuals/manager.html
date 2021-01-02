@@ -37,7 +37,7 @@
 							<td>{{i.date}}</td>
 							<td>{{i.educator.qualification}}</td>
 							<td>{{i.start_time}} to {{i.end_time}}</td>						
-							<td><a class="btn btn-sm btn-info" href="#">Book</a></td>
+							<td><a class="btn btn-sm btn-info" href="{% url 'make_booking' i.id %}">Book</a></td>
 						</tr>
 					{% endfor %}
 
