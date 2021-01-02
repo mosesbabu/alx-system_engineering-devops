@@ -118,7 +118,7 @@ def account(request):
 		form = EducatorForm(request.POST, request.FILES,instance=educator)
 		if form.is_valid():
 			form.save()
-			return redirect('/')
+			return redirect('/account')
 
 	context = {'form':form}
 	return render(request, 'casuals/account.html', context)

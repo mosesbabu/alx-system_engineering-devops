@@ -23,6 +23,11 @@ class JobForm(ModelForm):
 		model = Job
 		fields = '__all__'
 		exclude = ['date_created']
+		widgets = {
+			'date': DatePickerInput(format='%Y-%m-%d'),
+			'shift_start_time':TimePickerInput().start_of('shift'),
+			'shift_end_time':TimePickerInput().end_of('shift'),
+		}		
 
 class AvailabilityForm(ModelForm):
 	class Meta:
@@ -39,4 +44,9 @@ class BookingForm(ModelForm):
 	class Meta:
 		model = Booking
 		fields = '__all__'
-		exclude = ['date_created', 'availability']		
+		exclude = ['date_created', 'availability']
+		widgets = {
+			'date': DatePickerInput(format='%Y-%m-%d'),
+			'shift_start_time':TimePickerInput().start_of('shift'),
+			'shift_end_time':TimePickerInput().end_of('shift'),
+		}				
