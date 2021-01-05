@@ -23,11 +23,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'yhayt81rwsaf+&nt5w9j(oo+u&(ov-!h-=q-mc8j64h_mg&^%f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
-DEBUG = False
+DEBUG = True
+#DEBUG = False
 
-#ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['babydojo-casual.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = ['babydojo-casual.herokuapp.com', '127.0.0.1']
 
 # Application definition
 

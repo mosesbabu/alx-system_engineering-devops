@@ -19,7 +19,7 @@ from .decorators import unauthenticated_user, allowed_users, admin_only
 @unauthenticated_user
 def registerPage(request):
 	if request.user.is_authenticated:
-		return redirect('home')
+		return redirect('manager')
 	else:
 		form = CreateUserForm()
 		if request.method == 'POST':
@@ -47,7 +47,7 @@ def registerPage(request):
 @unauthenticated_user
 def loginPage(request):
 	if request.user.is_authenticated:
-		return redirect('home')
+		return redirect('manager')
 	else:
 		if request.method == 'POST':
 			username = request.POST.get('username')
@@ -57,7 +57,7 @@ def loginPage(request):
 
 			if user is not None:
 				login(request, user)
-				return redirect('home')
+				return redirect('manager')
 			else:
 				messages.info(request, 'Username OR password is incorrect')
 
@@ -71,21 +71,23 @@ def logoutUser(request):
 @login_required(login_url='login')
 @admin_only
 def home(request):
-	return render(request, 'casuals/dashboard.html')
+	return render(request, 'casuals/manager.html')
 
 @login_required(login_url='login')
 @admin_only
 def manager(request):
+	availability = Availability.objects.all()
+	myFilter = AvailabilityFilter(request.GET, queryset=availability)
+	availability = myFilter.qs
+	
 	startdate = date.today()
-	enddate = startdate + timedelta(days=14)
+	enddate = startdate + timedelta(days=30)
 	availability_start_today = Availability.objects.filter(date__range=[startdate, enddate]).order_by('date')
 	
 	booking_start_today = Booking.objects.filter(date__range=[startdate, enddate]).order_by('date')
 	job_start_today = Job.objects.filter(date__range=[startdate, enddate]).order_by('date')
 	
-	availability = Availability.objects.all()
-	myFilter = AvailabilityFilter(request.GET, queryset=availability)
-	availability = myFilter.qs
+
 
 	context = {'availability':availability_start_today, 'booking':booking_start_today, 'job':job_start_today, 'myFilter':myFilter}
 	return render(request, 'casuals/manager.html', context)
@@ -93,12 +95,15 @@ def manager(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['educator'])
 def educator(request):
-	educator = Educator.objects.all()
-	availability = request.user.educator.availability_set.all()
-	booking = request.user.educator.booking_set.all()
-	job = Job.objects.all()
+	startdate = date.today()
+	enddate = startdate + timedelta(days=30)
 
-	context = {'educator':educator, 'availability':availability, 'booking':booking, 'job':job}
+	educator = Educator.objects.all()
+	availability_start_today = request.user.educator.availability_set.all().filter(date__range=[startdate, enddate]).order_by('date')
+	booking_start_today = request.user.educator.booking_set.all().filter(date__range=[startdate, enddate]).order_by('date')
+	job_start_today = Job.objects.all().filter(date__range=[startdate, enddate]).order_by('date')
+
+	context = {'educator':educator, 'availability':availability_start_today, 'booking':booking_start_today, 'job':job_start_today}
 
 	return render(request, 'casuals/educator.html',context)
 
