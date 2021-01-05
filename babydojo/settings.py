@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bootstrap_datepicker_plus',
     'bootstrapform',
 
     'bd_live',
@@ -45,7 +46,7 @@ INSTALLED_APPS = [
 
     'django_filters',
     "bootstrap4",
-    'bootstrap_datepicker_plus',
+
 ]
 
 MIDDLEWARE = [
