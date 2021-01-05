@@ -176,6 +176,24 @@ def createJob(request):
 	return render(request, 'casuals/form.html', context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['educator'])
+def acceptJob(request, pk):
+	job = Job.objects.get(id=pk)
+	educator = request.user.educator
+	form = BookingForm(initial={'educator':educator, 'status':'Accepted'}, instance=job)
+
+	if request.method == "POST":
+		form = BookingForm(request.POST)
+		if form.is_valid():
+			form.save()
+			job.delete()
+			return redirect('/educator')
+
+	context = {'item':job, 'form':form}
+
+	return render(request, 'casuals/accept_job.html', context)
+
+@login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def updateJob(request, pk):
 	job = Job.objects.get(id=pk)
@@ -205,7 +223,6 @@ def deleteJob(request, pk):
 @allowed_users(allowed_roles=['educator'])
 def createAvailability(request):
 	educator = request.user.educator
-
 	form = AvailabilityForm(initial={'educator': educator})
 	if request.method == 'POST':
 		form = AvailabilityForm(request.POST)

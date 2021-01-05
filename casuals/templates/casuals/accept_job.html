@@ -1,5 +1,6 @@
 {%  extends 'casuals/main.html' %}
 {% load static %}
+{% load bootstrap %}
 {% block content %}
 
 <br>
@@ -18,10 +19,13 @@
 
 			<form method="POST">
 				{% csrf_token %}
+				{{form|bootstrap}}
 				<a class="btn btn-warning" href="{% url 'educator' %}">Cancel</a>
 
 				<input class="btn btn-danger" type="submit" name="Confirm">
 			</form>
+
+			
 		</div>
 	</div>
 </div>

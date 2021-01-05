@@ -45,7 +45,7 @@
 							<td>{{i.date}}</td>
 							<td>{{i.qualification}}</td>
 							<td>{{i.shift_start_time}} to {{i.shift_end_time}}</td>						
-							<td><a class="btn btn-sm btn-info" href="#">Accept</a></td>
+							<td><a class="btn btn-sm btn-info" href="{% url 'accept_job' i.id %}">Accept</a></td>
 						</tr>
 					{% endfor %}
 				</table>

@@ -38,6 +38,7 @@ urlpatterns = [
 
 
 	path('create_job/', views.createJob, name='create_job'),
+	path('accept_job/<str:pk>/', views.acceptJob, name='accept_job'),
 	path('update_job/<str:pk>/', views.updateJob, name='update_job'),
 	path('delete_job/<str:pk>/', views.deleteJob, name='delete_job'),
 
