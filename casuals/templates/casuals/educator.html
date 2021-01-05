@@ -69,13 +69,15 @@
 					</tr>
 					
 					{% for i in booking %}
-						<tr>
-							<td>{{i.manager.centre}}</td>
-							<td>{{i.date}}</td>
-							<td>{{i.shift_start_time}} to {{i.shift_end_time}}</td>
-							<td><a class="btn btn-sm btn-info" href="#">Accept</a></td>
-							<td><a class="btn btn-sm btn-danger" href="#">Reject</a></td>
-						</tr>
+						{% if i.status == 'Pending' %}
+							<tr>
+								<td>{{i.manager.centre}}</td>
+								<td>{{i.date}}</td>
+								<td>{{i.shift_start_time}} to {{i.shift_end_time}}</td>
+								<td><a class="btn btn-sm btn-info" href="{% url 'accept_booking' i.id %}">Accept</a></td>
+								<td><a class="btn btn-sm btn-danger" href="{% url 'reject_booking' i.id %}">Reject</a></td>
+							</tr>
+						{% endif %}
 					{% endfor %}
 				</table>
 		</div>
@@ -114,10 +116,19 @@
 			<table class="table table-md">
 				<tr>
 					<th>Date</th>
-					<th>Shift</th>
 					<th>Centre</th>
-					<th>Note</th>
+					<th>Shift</th>		
 				</tr>
+				
+				{% for i in booking %}
+					{% if i.status == 'Accepted' %}
+					<tr>
+						<td>{{i.date}}</td>
+						<td>{{i.manager.centre}}</td>
+						<td>{{i.shift_start_time}} to {{i.shift_end_time}}</td>
+					</tr>
+					{% endif %}
+				{% endfor %}
 			</table>
 		</div>
 	</div>

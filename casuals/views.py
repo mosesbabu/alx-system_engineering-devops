@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.forms import inlineformset_factory
+from django.forms import Select
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
+from datetime import date, datetime, timedelta
 # Create your views here.
 from .models import *
 from .forms import *
@@ -74,16 +76,18 @@ def home(request):
 @login_required(login_url='login')
 @admin_only
 def manager(request):
-
-	availability = Availability.objects.all()
-	booking = Booking.objects.all()
-	job = Job.objects.all()
+	startdate = date.today()
+	enddate = startdate + timedelta(days=14)
+	availability_start_today = Availability.objects.filter(date__range=[startdate, enddate]).order_by('date')
 	
-
+	booking_start_today = Booking.objects.filter(date__range=[startdate, enddate]).order_by('date')
+	job_start_today = Job.objects.filter(date__range=[startdate, enddate]).order_by('date')
+	
+	availability = Availability.objects.all()
 	myFilter = AvailabilityFilter(request.GET, queryset=availability)
 	availability = myFilter.qs
 
-	context = {'availability':availability, 'booking':booking, 'job':job, 'myFilter':myFilter}
+	context = {'availability':availability_start_today, 'booking':booking_start_today, 'job':job_start_today, 'myFilter':myFilter}
 	return render(request, 'casuals/manager.html', context)
 
 @login_required(login_url='login')
@@ -200,8 +204,9 @@ def deleteJob(request, pk):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['educator'])
 def createAvailability(request):
-	form = AvailabilityForm()
-	
+	educator = request.user.educator
+
+	form = AvailabilityForm(initial={'educator': educator})
 	if request.method == 'POST':
 		form = AvailabilityForm(request.POST)
 		if form.is_valid():
@@ -253,6 +258,32 @@ def makeBooking(request, pk):
 	context = {'form':form}
 
 	return render(request, 'casuals/form.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['educator'])
+def acceptBooking(request, pk):
+	booking = Booking.objects.get(id=pk)
+	if request.method == "POST":
+		booking.status = 'Accepted'
+		booking.save()
+		return redirect('/educator')
+
+	context = {'item':booking}
+
+	return render(request, 'casuals/accept_job.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['educator'])
+def rejectBooking(request, pk):
+	booking = Booking.objects.get(id=pk)
+	if request.method == "POST":
+		booking.status = 'Not Accepted'
+		booking.save()
+		return redirect('/educator')
+
+	context = {'item':booking}
+
+	return render(request, 'casuals/reject_job.html', context)
 
 
 @login_required(login_url='login')

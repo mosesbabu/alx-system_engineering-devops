@@ -1,5 +1,6 @@
 {%  extends 'casuals/main.html' %}
 {% load static %}
+{% load bootstrap %}
 {% block content %}
 
 <style>
@@ -28,7 +29,29 @@
 			
 			<form method="POST" action="" enctype="multipart/form-data">
 				{% csrf_token %}
-				{{form.as_p}}
+				<div class="row">
+					<div class="col-6">
+					  {{ form.first_name|bootstrap }}
+					</div>
+					<div class="col-6">
+					  {{ form.last_name|bootstrap }}
+					</div>
+					<div class="col-6">
+						{{ form.nick_name|bootstrap }}
+					  </div>
+					<div class="col-6">
+						{{ form.mobile|bootstrap }}
+					</div>
+					<div class="col-6">
+						{{ form.qualification|bootstrap }}
+					</div>
+					<div class="col-6">
+						{{ form.email|bootstrap }}
+					</div>
+					<div class="col-6">
+						{{ form.profile_pic|bootstrap }}
+					</div>
+				</div>	
 		
 			<input class="btn btn-primary" type="submit" name="Update Information">
 			</form>

@@ -85,3 +85,4 @@ class Booking(models.Model):
 	shift_end_time = models.TimeField(null=True)
 	status = models.CharField(max_length=200, null=True, choices=STATUS)
 	time_created = models.DateTimeField(auto_now_add=True, null=True)
+

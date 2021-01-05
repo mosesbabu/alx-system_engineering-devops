@@ -30,6 +30,11 @@ class JobForm(ModelForm):
 		}		
 
 class AvailabilityForm(ModelForm):
+	def __init__(self, *args, **kwargs):
+		super(AvailabilityForm, self).__init__(*args, **kwargs)
+		self.fields['educator'].widget.attrs['readonly'] = True
+		widget=forms.Select(attrs={'disabled':'disabled'})
+
 	class Meta:
 		model = Availability
 		fields = '__all__'
@@ -41,6 +46,11 @@ class AvailabilityForm(ModelForm):
         }
 
 class BookingForm(ModelForm):
+	def __init__(self, *args, **kwargs):
+		super(BookingForm, self).__init__(*args, **kwargs)
+		self.fields['educator'].widget.attrs['readonly'] = True
+		widget=forms.Select(attrs={'disabled':'disabled'})
+
 	class Meta:
 		model = Booking
 		fields = '__all__'
