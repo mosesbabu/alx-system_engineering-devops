@@ -91,8 +91,8 @@ DATABASES = {
         'NAME': 'babydojo_casual',
         'USER':'babydojo_admin',
         'PASSWORD':'369852Ng',
-        'HOST':'',
-        'PORT':'',
+        'HOST':'localhost',
+        'PORT':'5432',
         
     }
 }
