@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'casuals',
 
     'django_filters',
-    "bootstrap4",
+    'bootstrap4',
+
+    'storages',
 
 ]
 
@@ -165,3 +167,13 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'harriet.ng.2020@gmail.com'
 EMAIL_HOST_PASSWORD = '369852@Ng'
+
+#S3 BUCKETS CONFIG
+AWS_ACCESS_KEY_ID = 'AKIA2HL2VT5RN2FTKU4G'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'babydojo.casual'
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
