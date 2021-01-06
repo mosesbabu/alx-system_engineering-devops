@@ -91,9 +91,8 @@ DATABASES = {
         'NAME': 'babydojo_casual',
         'USER':'babydojo_admin',
         'PASSWORD':'369852Ng',
-        'HOST':'ec2-50-19-32-202.compute-1.amazonaws.com',
+        'HOST':'',
         'PORT':'5432',
-        
     }
 }
 
