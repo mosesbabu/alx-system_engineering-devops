@@ -27,7 +27,7 @@ SECRET_KEY = 'yhayt81rwsaf+&nt5w9j(oo+u&(ov-!h-=q-mc8j64h_mg&^%f'
 DEBUG = False
 
 #ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['babydojo-casual.herokuapp.com','louey-crm.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['myawesomeapp88.herokuapp.com','babydojo-casual.herokuapp.com','louey-crm.herokuapp.com', '127.0.0.1']
 
 # Application definition
 
@@ -101,9 +101,9 @@ DATABASES = {
     }
 }
 
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
+#import dj_database_url
+#db_from_env = dj_database_url.config(conn_max_age=600)
+#DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
