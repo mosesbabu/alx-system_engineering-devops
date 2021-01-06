@@ -84,10 +84,10 @@ WSGI_APPLICATION = 'babydojo.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-'''
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'deocg5a6bc0ng5',
         'USER':'thhgbmvwoqwfke',
         'PASSWORD':'e56f0bbb1dde4920c0bb76cae5b19a4aebe9c9d446ffb4b6464e9464ed27facc',
@@ -103,6 +103,7 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+'''
 
 #import dj_database_url
 #db_from_env = dj_database_url.config(conn_max_age=600)
