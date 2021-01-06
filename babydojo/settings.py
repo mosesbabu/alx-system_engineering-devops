@@ -27,7 +27,7 @@ SECRET_KEY = 'yhayt81rwsaf+&nt5w9j(oo+u&(ov-!h-=q-mc8j64h_mg&^%f'
 DEBUG = False
 
 #ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['babydojo-casual.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['babydojo-casual.herokuapp.com','louey-crm.herokuapp.com', '127.0.0.1']
 
 # Application definition
 
