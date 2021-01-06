@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'babydojo.wsgi.application'
 '''
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'deocg5a6bc0ng5',
         'USER':'thhgbmvwoqwfke',
         'PASSWORD':'e56f0bbb1dde4920c0bb76cae5b19a4aebe9c9d446ffb4b6464e9464ed27facc',
